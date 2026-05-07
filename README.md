@@ -26,6 +26,18 @@ tools/
 workspace/
 ```
 
+
+## Container image / Daytona snapshot
+
+This template publishes a sandbox image to GitHub Container Registry on every push to `main`:
+
+```text
+ghcr.io/salambo-ai/salambo-agent-template:latest
+ghcr.io/salambo-ai/salambo-agent-template:<git-sha>
+```
+
+Use that image when creating a Daytona snapshot for this agent. The default `Dockerfile` creates a lightweight sandbox with `/workspace` as the working directory and keeps the container alive for process/file execution.
+
 ## Quick start
 
 1. Edit `salambo.yaml`:
