@@ -1,0 +1,35 @@
+version: 1
+name: salambo-agent-template
+runtime: agent
+
+image:
+  repository: ghcr.io/salambo-ai/salambo-agent-template
+  tag: git-sha
+  context: .
+  dockerfile: Dockerfile
+  platform: linux/amd64
+  buildArgs: {}
+
+sandbox:
+  provider: daytona
+  cwd: /workspace
+  autoStopIntervalMinutes: 15
+
+snapshot:
+  name: salambo-agent-template
+  size: s
+
+agent:
+  name: Salambo Agent Template
+  slug: salambo-agent-template
+  description: Runtime-neutral starter agent with lazy sandbox hands.
+  icon: 🤖
+  isActive: true
+
+runtimeConfig:
+  egressPolicyMode: restricted
+  egressAllowlist:
+    - api.openai.com
+
+env: {}
+secrets: {}
