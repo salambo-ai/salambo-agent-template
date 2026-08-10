@@ -25,5 +25,3 @@ jobs:
 
       - name: Validate managed template contract
         run: node scripts/validate-template.mjs
-        env:
-          SALAMBO_CANONICAL_TEMPLATE: "1"

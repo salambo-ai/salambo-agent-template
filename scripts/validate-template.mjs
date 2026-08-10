@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 
 const expectedTools = ["read", "write", "edit", "bash"];
 const validateCanonicalDefaults =
+  process.env.GITHUB_REPOSITORY === "salambo-ai/salambo-agent-template" ||
   process.env.SALAMBO_CANONICAL_TEMPLATE === "1";
 const forbiddenPaths = [
   ".dockerignore",
