@@ -1,0 +1,49 @@
+# Copy this file to deploy.yml after configuring the repository environment.
+name: Deploy Salambo agent
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Salambo / staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Install compatible Salambo CLI
+        run: npm install --global salambo@0.2.0
+
+      - name: Validate template
+        run: node scripts/validate-template.mjs
+
+      - name: Configure Salambo authentication
+        run: >-
+          salambo auth set
+          --profile ci
+          --env-var SALAMBO_API_KEY
+          --api-url "$SALAMBO_API_URL"
+        env:
+          SALAMBO_API_KEY: ${{ secrets.SALAMBO_API_KEY }}
+          SALAMBO_API_URL: ${{ vars.SALAMBO_API_URL }}
+
+      - name: Deploy immutable source
+        run: >-
+          salambo deploy
+          --profile ci
+          --source .
+          --config salambo.yaml
+          --commit "$GITHUB_SHA"
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}

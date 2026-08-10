@@ -1,8 +1,8 @@
 {
   "model": {
     "provider": "openai",
-    "model": "gpt-5.5",
+    "model": "gpt-5.2",
     "thinkingLevel": "low"
   },
-  "tools": ["bash", "read", "write"]
+  "tools": ["read", "write", "edit", "bash"]
 }
