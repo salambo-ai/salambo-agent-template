@@ -1,0 +1,29 @@
+name: Template contract
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install compatible Salambo CLI
+        run: npm install --global salambo@0.2.0
+
+      - name: Validate managed template contract
+        run: node scripts/validate-template.mjs
+        env:
+          SALAMBO_CANONICAL_TEMPLATE: "1"
