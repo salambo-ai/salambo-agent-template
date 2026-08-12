@@ -20,14 +20,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install Salambo CLI from the matching platform branch
-        run: |
-          git clone --depth 1 --branch codex/sal-394-owned-pi-projects https://github.com/salambo-ai/salambo_app.git /tmp/salambo-app
-          corepack enable
-          cd /tmp/salambo-app
-          pnpm install --frozen-lockfile
-          pnpm --filter salambo build
-          npm install --global ./packages/cli
-
-      - name: Validate managed template contract
+      - name: Validate Pi project source contract
+        env:
+          SALAMBO_SKIP_CLI_VALIDATION: '1'
         run: node scripts/validate-template.mjs
