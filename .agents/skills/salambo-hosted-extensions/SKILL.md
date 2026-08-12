@@ -5,7 +5,7 @@ description: Add or update JavaScript hosted extension tools and lifecycle hooks
 
 # Build a hosted extension
 
-Put runnable JavaScript ESM modules under `agent/extensions/` and declare each entrypoint in `salambo.yaml`.
+Put runnable JavaScript ESM modules under `.pi/extensions/`. Pi discovers each entrypoint.
 
 Use an extension for executable behavior. Use a runtime skill when the agent only needs instructions or a workflow.
 
@@ -14,7 +14,7 @@ For a tool:
 1. Register it with `pi.registerTool(...)`.
 2. Define a bounded JSON schema with required fields and `additionalProperties: false`.
 3. Validate untrusted inputs and return structured content.
-4. Add the registered name to `agent/settings.json` when it should start active.
+4. The registered tool starts active in new hosted sessions.
 
 Hosted extensions run in the sandbox sidecar. They cannot use local Pi terminal UI APIs, shortcuts, or arbitrary worker internals. Keep secrets in Salambo configuration and use the managed egress contract for sandbox network calls.
 

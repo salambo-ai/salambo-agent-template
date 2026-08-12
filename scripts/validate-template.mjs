@@ -20,11 +20,14 @@ const forbiddenPaths = [
 
 validateForbiddenPaths();
 validateManagedPackages();
-const manifest = validateManifest();
-if (validateCanonicalDefaults) {
-  validateDefaultAgent(manifest);
+validatePiProject();
+if (process.env.SALAMBO_SKIP_CLI_VALIDATION !== '1') {
+  const manifest = validateManifest();
+  if (validateCanonicalDefaults) {
+    validateDefaultAgent(manifest);
+  }
+  validateDryDeployment();
 }
-validateDryDeployment();
 
 console.log("Salambo managed agent template is valid.");
 
@@ -34,6 +37,21 @@ function validateForbiddenPaths() {
     throw new Error(
       `Legacy template paths are not allowed: ${present.join(", ")}`,
     );
+  }
+}
+
+function validatePiProject() {
+  for (const filePath of ['.pi/settings.json', '.pi/SYSTEM.md']) {
+    if (!existsSync(filePath)) {
+      throw new Error(`Required Pi project file is missing: ${filePath}`);
+    }
+  }
+  const settings = JSON.parse(readFileSync('.pi/settings.json', 'utf8'));
+  if (
+    typeof settings.defaultProvider !== 'string' ||
+    typeof settings.defaultModel !== 'string'
+  ) {
+    throw new Error('.pi/settings.json must select a default provider and model.');
   }
 }
 
