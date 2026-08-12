@@ -9,9 +9,9 @@ declared resources, sandbox packages, and initial workspace files.
 ## Project layout
 
 ```text
-agent/
-  settings.json          Default model and active tools
-  system.md              Base agent instructions
+.pi/
+  settings.json          Standard Pi model defaults
+  SYSTEM.md              Base agent instructions
   skills/                Reusable runtime skills
   prompts/               Optional prompt templates
   extensions/            Optional hosted extension modules
@@ -48,9 +48,8 @@ salambo manifest --path . --json
 node scripts/validate-template.mjs
 ```
 
-The template currently targets CLI `0.2.0` for manifest and deployment
-compatibility. Its legacy Docker checks in `salambo doctor` will be removed in
-the CLI phase of SAL-373 before `salambo init` points at this template.
+The template follows Pi's `.pi/` project contract. Released CLI versions pin an
+immutable compatibility tag instead of cloning the moving default branch.
 
 Deploy and run a hosted smoke request:
 
@@ -61,16 +60,15 @@ salambo smoke "Review the workspace and explain what this agent can do."
 
 ## Customize the agent
 
-- Change the role and operating rules in `agent/system.md`.
-- Change the model, thinking level, or active tools in `agent/settings.json`.
-- Add focused reusable instructions under `agent/skills/<name>/SKILL.md`.
-- Add prompt templates under `agent/prompts/`.
-- Add executable tools or hooks under `agent/extensions/` and declare them in
-  `salambo.yaml`.
+- Change the role and operating rules in `.pi/SYSTEM.md`.
+- Change the model or thinking level in `.pi/settings.json`.
+- Add focused reusable instructions under `.pi/skills/<name>/SKILL.md`.
+- Add prompt templates under `.pi/prompts/`.
+- Add executable tools or hooks under `.pi/extensions/`. Pi discovers them.
 
-The default active tools are `read`, `write`, `edit`, and `bash`. These are the
-supported hosted Pi file and command tools. Shell utilities such as `grep`,
-`find`, and `ls` are commands used through `bash`, not separate active tools.
+The hosted runtime supplies `read`, `write`, `edit`, and `bash`. Discovered
+extension tools also start active. Shell utilities such as `grep`, `find`, and
+`ls` are commands used through `bash`, not separate active tools.
 
 ## Customize the managed sandbox
 
