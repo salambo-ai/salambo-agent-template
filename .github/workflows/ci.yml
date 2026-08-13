@@ -20,7 +20,8 @@ jobs:
         with:
           node-version: 22
 
+      - name: Install Salambo CLI
+        run: npm install --global salambo@0.3.4
+
       - name: Validate Pi project source contract
-        env:
-          SALAMBO_SKIP_CLI_VALIDATION: '1'
         run: node scripts/validate-template.mjs
