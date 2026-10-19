@@ -1,7 +1,10 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 
-const expectedTools = ["read", "write", "edit", "bash", "share_file"];
+// The compiled manifest lists only the built-in tools. Extension tools (share_file) are not in
+// it: the CLI does not run extensions, and the runtime activates whatever the sidecar registers
+// because the manifest sets extensionRegistration.defaultToolActivation to "all".
+const expectedTools = ["read", "write", "edit", "bash"];
 const validateCanonicalDefaults =
   process.env.GITHUB_REPOSITORY === "salambo-ai/salambo-agent-template" ||
   process.env.SALAMBO_CANONICAL_TEMPLATE === "1";
