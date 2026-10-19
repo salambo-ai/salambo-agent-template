@@ -1,7 +1,7 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 
-const expectedTools = ["read", "write", "edit", "bash"];
+const expectedTools = ["read", "write", "edit", "bash", "share_file"];
 const validateCanonicalDefaults =
   process.env.GITHUB_REPOSITORY === "salambo-ai/salambo-agent-template" ||
   process.env.SALAMBO_CANONICAL_TEMPLATE === "1";

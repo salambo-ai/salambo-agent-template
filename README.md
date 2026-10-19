@@ -67,7 +67,9 @@ salambo smoke "Review the workspace and explain what this agent can do."
 - Add executable tools or hooks under `.pi/extensions/`. Pi discovers them.
 
 The hosted runtime supplies `read`, `write`, `edit`, and `bash`. Discovered
-extension tools also start active. Shell utilities such as `grep`, `find`, and
+extension tools also start active; the template ships `share_file`
+(`.pi/extensions/share-file.mjs`), which publishes a workspace file to the user
+as a download link. Shell utilities such as `grep`, `find`, and
 `ls` are commands used through `bash`, not separate active tools.
 
 ## Customize the managed sandbox
