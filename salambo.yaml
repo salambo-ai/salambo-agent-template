@@ -16,6 +16,7 @@ runtimeConfig:
   egressPolicyMode: restricted
   egressAllowlist: []
   workspaceUpgradePolicy: automatic
+  sandboxRegion: eu
 
 env: {}
 
